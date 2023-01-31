@@ -1,49 +1,60 @@
+import manager.Manager;
+import tasks.Status;
+import tasks.Task;
+import tasks.Subtask;
+import tasks.Epic;
 public class Main {
     public static void main(String[] args){
 
         Manager manager = new Manager();
-
         //2.4 создание задач
-        manager.createTask(new Task("Задача 1", "Описание задачи 1"));
-        manager.createTask(new Task("Задача 2", "Описание задачи 2"));
+        Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
+        Task task2 = new Task("Задача 2", "Описание задачи 2", Status.NEW);
+        manager.createTask(task1);
+        manager.createTask(task2);
 
-        manager.createEpic(new Epic("Эпик 1", "описание Эпика 1"));
-        manager.createSubTask(new SubTask("Подзадача 1", "описание Подзадачи 1", 3));
-        manager.createSubTask(new SubTask("Подзадача 2", "описание Подзадачи 2", 3));
 
-        manager.createEpic(new Epic("Эпик 2", "описание Эпика 2"));
-        manager.createSubTask(new SubTask("Подзадача 3", "описание Подзадачи 3", 6));
+        Epic epic1 = new Epic("Эпик 1", "описание Эпика 1", Status.NEW);
+        manager.createEpic(epic1);
+        Subtask subtask1 = new Subtask("Подзадача 1", "описание Подзадачи 1", Status.NEW, 1);
+        Subtask subtask2 = new Subtask("Подзадача 2", "описание Подзадачи 2", Status.NEW, 1);
+        manager.createSubtask(subtask1);
+        manager.createSubtask(subtask2);
 
-        manager.updateTask(new Task("Обновленный Task", "описание обновленного Task"), 1,
-                "in_Progress");
-        manager.updateSubTask(new SubTask("Обновленный subTask", "описание обновленного subTask", 6),
-                7, "Done");
+        Epic epic2 = new Epic("Эпик 2", "описание Эпика 2", Status.NEW);
+        manager.createEpic(epic2);
+        Subtask subtask3 = new Subtask("Подзадача 3", "описание Подзадачи 3", Status.NEW, 2);
+        manager.createSubtask(subtask3);
+
+        manager.updateTask(task1);
+        manager.updateSubtask(subtask1);
 
         //2.1 получение списка всех задач
-        manager.printAllTask();
-        manager.printAllSubTask();
-        manager.printAllEpic();
+        manager.receiveAllTask();
+        manager.receiveAllSubtask();
+        manager.receiveAllEpic();
         //2.2 Удаление всех задач
         manager.clearAllTask();
-        manager.clearAllSubTask();
+        manager.clearAllSubtask();
         manager.clearAllEpic();
         //2.3 получение по идентификатору
-        manager.printByIdTask(4);
-        manager.printByIdSubTask(4);
-        manager.printByIdEpic(4);
+        manager.receiveByIdTask(1);
+        manager.receiveByIdSubtask(1);
+        manager.receiveByIdEpic(1);
         //3.1 получение списка всех подзадач определённого эпика
-        manager.printingEpicSubtask(3);
+        manager.getListAllEpicSubtasks(epic1);
         //2.6 удаление по идентификатору
-        manager.clearByIdTask(2);
-        manager.clearByIdSubTask(3);
-        manager.clearByIdEpic(3);
+        manager.clearByIdTask(1);
+        manager.clearByIdSubtask(1);
+        manager.clearByIdEpic(1);
         //2.1 получение списка всех задач
-        manager.printAllTask();
-        manager.printAllSubTask();
-        manager.printAllEpic();
+        System.out.println("получение списка всех задач");
+        manager.receiveAllTask();
+        manager.receiveAllSubtask();
+        manager.receiveAllEpic();
         //2.2 удаление всех задач
         manager.clearAllTask();
-        manager.clearAllSubTask();
+        manager.clearAllSubtask();
         manager.clearAllEpic();
     }
 }
