@@ -30,9 +30,9 @@ public class Main {
         manager.updateSubtask(subtask1);
 
         //2.1 получение списка всех задач
-        manager.receiveAllTask();
-        manager.receiveAllSubtask();
-        manager.receiveAllEpic();
+        manager.getAllTask();
+        manager.getAllSubtask();
+        manager.getAllEpic();
         //2.2 Удаление всех задач
         manager.clearAllTask();
         manager.clearAllSubtask();
@@ -49,9 +49,9 @@ public class Main {
         manager.clearByIdEpic(1);
         //2.1 получение списка всех задач
         System.out.println("получение списка всех задач");
-        manager.receiveAllTask();
-        manager.receiveAllSubtask();
-        manager.receiveAllEpic();
+        manager.getAllTask();
+        manager.getAllSubtask();
+        manager.getAllEpic();
         //2.2 удаление всех задач
         manager.clearAllTask();
         manager.clearAllSubtask();

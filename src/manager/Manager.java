@@ -1,7 +1,6 @@
 package manager;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,9 +11,9 @@ import tasks.Epic;
 
 public class Manager {
 
-    HashMap<Integer, Task> taskMap = new HashMap<>();
-    HashMap<Integer, Subtask> subtaskMap = new HashMap<>();
-    HashMap<Integer, Epic> epicMap = new HashMap<>();
+    private HashMap<Integer, Task> taskMap = new HashMap<>();
+    private HashMap<Integer, Subtask> subtaskMap = new HashMap<>();
+    private HashMap<Integer, Epic> epicMap = new HashMap<>();
     private int generatorId = 0;
 
     //счетчик для выдачи уникального id
@@ -70,16 +69,16 @@ public class Manager {
     }
 
     //2.1 Получение списка всех задач
-    public Collection<Task> receiveAllTask() {
-        return taskMap.values();
+    public ArrayList<Task> getAllTask() {
+        return new ArrayList<>(taskMap.values());
     }
 
-    public Collection<Subtask> receiveAllSubtask() {
-        return subtaskMap.values();
+    public ArrayList<Subtask> getAllSubtask() {
+        return new ArrayList<>(subtaskMap.values());
     }
 
-    public Collection<Epic> receiveAllEpic() {
-        return epicMap.values();
+    public ArrayList<Epic> getAllEpic() {
+        return new ArrayList<>(epicMap.values());
     }
 
     //2.2 Удаление всех задач
@@ -89,7 +88,7 @@ public class Manager {
 
     public void clearAllSubtask() {
         subtaskMap.clear();
-        for (Epic epic : receiveAllEpic()) {
+        for (Epic epic : getAllEpic()) {
             epic.setStatus(Status.NEW);
         }
     }
