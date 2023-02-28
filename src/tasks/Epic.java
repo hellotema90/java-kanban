@@ -30,11 +30,11 @@ public class Epic extends Task {
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 ", subtaskId='" + subtaskId + '\'' +
-                '}';
+                '}' + '\n';
         boolean isNotEmpty = subtaskId != null && !subtaskId.isEmpty();
         if (isNotEmpty) {
             result += "subtaskId='" + subtaskId + '\'' +
-                    '}';
+                    '}' + '\n';
         }
         return result;
     }

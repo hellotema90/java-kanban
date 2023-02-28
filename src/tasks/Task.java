@@ -54,6 +54,6 @@ public class Task {
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 ", id='" + id + '\'' +
-                '}';
+                '}' + '\n';
     }
 }
