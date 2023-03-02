@@ -1,7 +1,7 @@
 package manager;
 
 import tasks.Task;
-import tasks.Node;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     //Указатель на последний элемент списка
     private Node<Task> tail;
     private HashMap<Integer, Node<Task>> idByNode = new HashMap<>();
-    int size = 0;
+    private CustomLinkedList customLinkedList = new CustomLinkedList();
+
     public class CustomLinkedList {
         public void linkLast(Task task) {
             final Node<Task> oldTail = tail;
@@ -21,35 +22,33 @@ public class InMemoryHistoryManager implements HistoryManager {
             if (oldTail == null) {
                 head = newNode;
             } else {
-                oldTail.next = newNode;
+                oldTail.setNext(newNode); //начали
             }
             if (idByNode.containsKey(task.getId())) {
                 removeNode(idByNode.get(task.getId()));
             }
 
             idByNode.put(task.getId(), newNode);
-            size++;
         }
 
         public void removeNode(Node<Task> node) {
             if (node != null) {
-                final Node<Task> next = node.next;
-                final Node<Task> prev = node.prev;
+                final Node<Task> next = node.getNext();
+                final Node<Task> prev = node.getPrev();
 
                 if (prev == null) {
                     head = next;
                 } else {
-                    prev.next = next;
-                    node.prev = null;
+                    prev.setNext(next);
+                    node.setPrev(null);
                 }
                 if (next == null) {
                     tail = prev;
                 } else {
-                    next.prev = prev;
-                    node.next = null;
+                    next.setPrev(prev);
+                    node.setNext(null);
                 }
-                idByNode.remove(node.data.getId());
-                size--;
+                idByNode.remove(node.getData().getId());
             }
         }
 
@@ -57,14 +56,13 @@ public class InMemoryHistoryManager implements HistoryManager {
             ArrayList<Task> tasks = new ArrayList<>();
             Node<Task> temp = head;
             while (temp != null) {
-                tasks.add(temp.data);
-                temp = temp.next;
+                tasks.add(temp.getData());
+                temp = temp.getNext();
             }
             return tasks;
         }
     }
 
-    CustomLinkedList customLinkedList = new CustomLinkedList();
     @Override
     public void add(Task task) {
         customLinkedList.linkLast(task);
