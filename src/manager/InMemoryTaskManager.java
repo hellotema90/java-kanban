@@ -11,10 +11,10 @@ import tasks.Epic;
 
 public class InMemoryTaskManager  implements TaskManager {
 
-    private final HashMap<Integer, Task> taskMap = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtaskMap = new HashMap<>();
-    private final HashMap<Integer, Epic> epicMap = new HashMap<>();
-    private final HistoryManager historyManager = Managers.getDefaultHistory();
+    protected final HashMap<Integer, Task> taskMap = new HashMap<>();
+    protected final HashMap<Integer, Subtask> subtaskMap = new HashMap<>();
+    protected final HashMap<Integer, Epic> epicMap = new HashMap<>();
+    protected final HistoryManager historyManager = Managers.getDefaultHistory();
     private int generatorId = 0;
 
     //счетчик для выдачи уникального id
