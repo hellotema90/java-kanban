@@ -1,5 +1,8 @@
 package tasks;
 
+import java.time.Instant;
+import java.util.Objects;
+
 public class Subtask extends Task {
     protected int epicId;
 
@@ -9,12 +12,31 @@ public class Subtask extends Task {
         this.epicId = epicId;
     }
 
+    public Subtask(String name, String description, Status status, int epicId, Instant startTime, long duration) {
+        super(description, name, status, startTime, duration);
+        this.epicId = epicId;
+    }
+
     public int getEpicId() {
         return epicId;
     }
 
     public void setEpicId(int epicId) {
         this.epicId = epicId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Subtask subtask = (Subtask) o;
+        return epicId == subtask.epicId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), epicId);
     }
 
 
@@ -27,6 +49,9 @@ public class Subtask extends Task {
                 ", status='" + status + '\'' +
                 ", id='" + id + '\'' +
                 ", epicId'" + epicId + '\'' +
-                '}' + '\n';
+                ", startTime='" + getStartTime().toEpochMilli() + '\'' +
+                ", endTime='" + getEndTime().toEpochMilli() + '\'' +
+                ", duration='" + getDuration() +
+                '}' + System.lineSeparator();
     }
 }

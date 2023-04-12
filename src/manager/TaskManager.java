@@ -57,4 +57,9 @@ public interface TaskManager {
 
     // последние просмотренные пользователем задачи
     List<Task>  getHistory();
+
+    //
+    List<Task> getPrioritizedTasks();
+
+
 }

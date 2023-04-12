@@ -65,6 +65,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void add(Task task) {
+        //customLinkedList.linkLast(task);
+        if (idByNode.containsKey(task.getId())) {
+            remove(task.getId());
+        }
         customLinkedList.linkLast(task);
     }
 
