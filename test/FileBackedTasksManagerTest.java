@@ -14,7 +14,7 @@ import java.util.List;
 
 public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
-    Path path = Path.of("taskdata.csv");
+    protected Path path = Path.of("taskdata.csv");
     File file = new File(String.valueOf(path));
 
     @Override
@@ -41,8 +41,6 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
         assertEquals(List.of(task1), fileBackedTasksManager.getAllTask());
         assertEquals(List.of(epic1), fileBackedTasksManager.getAllEpic());
     }
-
-
 
     @Test
     void loadHistoryEmptyHistory() {

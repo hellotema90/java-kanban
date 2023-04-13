@@ -16,6 +16,7 @@ Epic extends Task {
     }
     public Epic(String name, String description, Status status, Instant startTime, long duration) {
         super(description, name, status, startTime, duration);
+        this.subtaskId = new ArrayList<>();
         this.endTime = super.getEndTime();
     }
 

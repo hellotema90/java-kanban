@@ -308,4 +308,46 @@ abstract class TaskManagerTest<T extends TaskManager> {
         assertEquals(subtask4, manager.getHistory().get(1));
         assertEquals(2, manager.getHistory().size());
     }
+    @Test
+    void shouldHaveNewStatusWhenEpicHasNoSubtasks() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", NEW);
+        manager.createEpic(epic);
+        assertEquals(manager.receiveByIdEpic(1).getStatus(), NEW);
+    }
+
+    @Test
+    void shouldHaveNewStatusWhenEpicHasNewStatusSubtasks() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", NEW);
+        manager.createEpic(epic);
+        manager.createSubtask(new Subtask("Подзадача 1", "Описание подзадачи 1", NEW, 1));
+        manager.createSubtask(new Subtask("Подзадача 2", "Описание подзадачи 2", NEW, 1));
+        assertEquals(manager.receiveByIdEpic(1).getStatus(), NEW);
+    }
+
+    @Test
+    void shouldHaveNewStatusWhenEpicHasInProgressStatusSubtasks() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", NEW);
+        manager.createEpic(epic);
+        manager.createSubtask(new Subtask("Подзадача 1", "Описание подзадачи 1", IN_PROGRESS, 1));
+        manager.createSubtask(new Subtask("Подзадача 2", "Описание подзадачи 2", IN_PROGRESS, 1));
+        assertEquals(manager.receiveByIdEpic(1).getStatus(), IN_PROGRESS);
+    }
+
+    @Test
+    void shouldHaveNewStatusWhenEpicHasDoneStatusSubtasks() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", NEW);
+        manager.createEpic(epic);
+        manager.createSubtask(new Subtask("Подзадача 1", "Описание подзадачи 1", DONE, 1));
+        manager.createSubtask(new Subtask("Подзадача 2", "Описание подзадачи 2", DONE, 1));
+        assertEquals(manager.receiveByIdEpic(1).getStatus(), DONE);
+    }
+
+    @Test
+    void shouldHaveNewStatusWhenEpicHasNewAndDoneStatusSubtasks() {
+        Epic epic = new Epic("Эпик 1", "Описание эпика 1", NEW);
+        manager.createEpic(epic);
+        manager.createSubtask(new Subtask("Подзадача 1", "Описание подзадачи 1", NEW, 1));
+        manager.createSubtask(new Subtask("Подзадача 2", "Описание подзадачи 2", DONE, 1));
+        assertEquals(manager.receiveByIdEpic(1).getStatus(), IN_PROGRESS);
+    }
 }

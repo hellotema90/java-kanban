@@ -27,13 +27,11 @@ public class InMemoryTaskManager  implements TaskManager {
     // 2.4 методы создания
     @Override
     public void createTask(Task task) { //task
-        //addNewPrioritizedTask(task);
         taskMap.put(task.setId(countGeneratorId()), task);
     }
 
     @Override
     public void createSubtask(Subtask subtask) { //subTask
-        //addNewPrioritizedTask(subtask);
         subtaskMap.put(subtask.setId(countGeneratorId()), subtask);
         Epic epic = epicMap.get(subtask.getEpicId());
         epic.getSubtaskId().add(subtask.getId());
@@ -149,8 +147,7 @@ public class InMemoryTaskManager  implements TaskManager {
     public void clearByIdSubtask(int id) {
         Epic epics = epicMap.get(subtaskMap.get(id).getEpicId());
         epics.getSubtaskId().remove((Integer)id);
-        //
-        prioritizedTasks.remove(subtaskMap.get(id));//
+        prioritizedTasks.remove(subtaskMap.get(id));
         historyManager.remove(id);
         subtaskMap.remove(id);
         updateStatusEpic(epics.getId());
@@ -188,30 +185,6 @@ public class InMemoryTaskManager  implements TaskManager {
     @Override
     public List<Task> getHistory() {
         return historyManager.getHistory();
-    }
-/*
-    public void updateTimeEpic(Epic epic) {
-        List<Subtask> subtasks = getListAllEpicSubtasks(epic);
-        //List<Subtask> subtasks = getListAllEpicSubtasks(epic.getId());
-        Instant startTime = subtasks.get(0).getStartTime();
-        Instant endTime = subtasks.get(0).getEndTime();
-
-        for (Subtask subtask : subtasks) {
-            if (subtask.getStartTime().isBefore(startTime)) startTime = subtask.getStartTime();
-            if (subtask.getEndTime().isAfter(endTime)) endTime = subtask.getEndTime();
-        }
-
-        epic.setStartTime(startTime);
-        epic.setEndTime(endTime);
-        long duration = (endTime.toEpochMilli() - startTime.toEpochMilli());
-        epic.setDuration(duration);
-    }
-*/
-
-
-    private void addNewPrioritizedTask(Task task) {
-        prioritizedTasks.add(task);
-        validateTaskPriority();
     }
 
     public boolean checkTime(Task task) {
@@ -258,8 +231,4 @@ public class InMemoryTaskManager  implements TaskManager {
         return prioritizedTasks.stream().toList();
 
     }
-
-
-
-
 }
