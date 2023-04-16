@@ -11,11 +11,11 @@ import java.util.List;
 public interface TaskManager {
 
     // 2.4 методы создания
-    void createTask(Task task);
+    Task createTask(Task task);
 
-    void createSubtask(Subtask subtask);
+    Subtask createSubtask(Subtask subtask);
 
-    void createEpic(Epic epic);
+    Epic createEpic(Epic epic);
 
     //2.5 методы обновления задач
     void updateTask(Task task);

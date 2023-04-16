@@ -14,10 +14,12 @@ public class InMemoryTaskManager  implements TaskManager {
     protected final HashMap<Integer, Task> taskMap = new HashMap<>();
     protected final HashMap<Integer, Subtask> subtaskMap = new HashMap<>();
     protected final HashMap<Integer, Epic> epicMap = new HashMap<>();
-    protected final HistoryManager historyManager = Managers.getDefaultHistory();
+    protected HistoryManager historyManager = Managers.getDefaultHistory();
     private int generatorId = 0;
     private final Comparator<Task> taskComparator = Comparator.comparing(Task::getStartTime);
     protected Set<Task> prioritizedTasks = new TreeSet<>(taskComparator);
+
+
 
     //счетчик для выдачи уникального id
     private int countGeneratorId() {
@@ -26,21 +28,24 @@ public class InMemoryTaskManager  implements TaskManager {
 
     // 2.4 методы создания
     @Override
-    public void createTask(Task task) { //task
+    public Task createTask(Task task) { //task
         taskMap.put(task.setId(countGeneratorId()), task);
+        return task;
     }
 
     @Override
-    public void createSubtask(Subtask subtask) { //subTask
+    public Subtask createSubtask(Subtask subtask) { //subTask
         subtaskMap.put(subtask.setId(countGeneratorId()), subtask);
         Epic epic = epicMap.get(subtask.getEpicId());
         epic.getSubtaskId().add(subtask.getId());
         updateStatusEpic(epic.getId());
+        return subtask;
     }
 
     @Override
-    public void createEpic(Epic epic) { //epic
+    public Epic createEpic(Epic epic) { //epic
         epicMap.put(epic.setId(countGeneratorId()), epic);
+        return epic;
     }
 
     //2.5 методы обновления задач

@@ -4,8 +4,15 @@ import tasks.*;
 
 import java.time.Instant;
 
+import http.adapters.InstantAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import manager.HistoryManager;
+import http.KVServer;
+import java.time.Instant;
+
 public class Main {
-    public static void main(String[] args) {
+public static void main(String[] args) {
         TaskManager taskManager = Managers.getInMemoryTaskManager();
         Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW, Instant.now(), 0);
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.NEW, Instant.now(), 0);
@@ -39,3 +46,4 @@ public class Main {
         System.out.println(taskManager.getHistory());
     }
 }
+

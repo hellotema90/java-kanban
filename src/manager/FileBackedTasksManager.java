@@ -16,11 +16,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private static final String HEADER_CSV_FILE = "id,type,name,status,description,epic" + System.lineSeparator();
 
 
-
     public FileBackedTasksManager(File file) {
         super();
         this.file = file;
     }
+
 
     public static void main(String[] args) {
         Path path = Path.of("taskdata.csv");
@@ -28,7 +28,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
 
-        FileBackedTasksManager fileBackedTasksManager = Managers.getDefault();
+        FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(new File(String.valueOf("taskdata.csv")));
         Task task1 = new Task("Задача 1", "Описание задачи 1", Status.NEW);
         Task task2 = new Task("Задача 2", "Описание задачи 2", Status.NEW);
         fileBackedTasksManager.createTask(task1);
@@ -233,21 +233,24 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void createTask(Task task) {
+    public Task createTask(Task task) {
         super.createTask(task);
         save();
+        return task;
     }
 
     @Override
-    public void createEpic(Epic epic) {
+    public Epic createEpic(Epic epic) {
         super.createEpic(epic);
         save();
+        return epic;
     }
 
     @Override
-    public void createSubtask(Subtask subtask) {
+    public Subtask createSubtask(Subtask subtask) {
         super.createSubtask(subtask);
         save();
+        return subtask;
     }
 
 
