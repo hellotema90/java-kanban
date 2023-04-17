@@ -13,7 +13,7 @@ public class KVTaskClient {
 
     private final String serverURL;
 
-    public KVTaskClient(String serverURL) throws IOException, InterruptedException {
+    public KVTaskClient(String serverURL) {
         this.serverURL = serverURL;
 
         URI uri = URI.create(this.serverURL + "/register");
@@ -25,9 +25,14 @@ public class KVTaskClient {
                 .build();
 
         HttpClient client = HttpClient.newHttpClient();
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString()
-        );
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            throw new RuntimeException("Не удалось");
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Не удалось");
+        }
         apiToken = response.body();
     }
 

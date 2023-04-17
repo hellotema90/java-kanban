@@ -28,7 +28,6 @@ public class KVServer {
     }
 
     private void load(HttpExchange httpExchange) {
-        // TODO Добавьте получение значения по ключу
         try (httpExchange) {
             System.out.println("\n/load");
             if (!hasAuth(httpExchange)) {

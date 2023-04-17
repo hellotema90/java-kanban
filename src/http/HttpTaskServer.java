@@ -2,8 +2,7 @@ package http;
 
 import com.sun.net.httpserver.HttpServer;
 import http.handlers.*;
-import manager.HistoryManager;
-import manager.Managers;
+import manager.HTTPTaskManager;
 import manager.TaskManager;
 
 import java.io.IOException;

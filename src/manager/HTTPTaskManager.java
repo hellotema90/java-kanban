@@ -1,6 +1,7 @@
-package http;
+package manager;
 
 
+import http.KVTaskClient;
 import http.adapters.InstantAdapter;
 import com.google.gson.*;
 import manager.FileBackedTasksManager;
@@ -24,7 +25,7 @@ public class HTTPTaskManager extends FileBackedTasksManager {
     private static final Gson gson =
             new GsonBuilder().registerTypeAdapter(Instant.class, new InstantAdapter()).create();
 
-    public HTTPTaskManager(String path) throws IOException, InterruptedException {
+    public HTTPTaskManager(String path){
         super();
         client = new KVTaskClient(path);
 

@@ -1,5 +1,6 @@
 package manager;
 
+import http.KVServer;
 import tasks.*;
 
 import java.io.*;
@@ -19,6 +20,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     public FileBackedTasksManager(File file) {
         super();
         this.file = file;
+    }
+
+    public FileBackedTasksManager(){
+        this.file = new File("http://localhost:" + KVServer.PORT);
     }
 
 
