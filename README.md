@@ -1,2 +1,2 @@
 # java-kanban
-Repository for homework project.
+Java-kanban - трекер задач, позволяет эффективно организовать совместную работу над задачами.
